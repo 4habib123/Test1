@@ -1,19 +1,27 @@
-import { BrowserModule }  from '@angular/platform-browser';
-import { NgModule } '@angular/core';
-import { SearchService } from './services/search.service';
-import { AppComponent } from './app.component'
-import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { routing, appRoutingProviders } from './app.routes';
+
+import { AppComponent } from './app.component.ts';
+import ComponentOne from './component-one';
+import ComponentTwo from './component-two';
+import ComponentAux from './component-aux';
 
 @NgModule({
-  imports: [BrowserModule, 
-    ReactiveFormsModule, 
-    FormsModule, 
-    HttpModule],
-  providers: [SearchService],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    routing
+  ],
+  declarations: [
+    AppComponent,
+    ComponentOne,
+    ComponentTwo,
+    ComponentAux
+  ],
+  providers: [
+    appRoutingProviders
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
-
 }

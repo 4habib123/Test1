@@ -1,48 +1,24 @@
-import { Component } from '@angular/core';
-import { FormControl, 
-	FormGroup, 
-	FormBuilder } from '@angular/forms'; 
-import { SearchService } from './services/search.service';
-import 'rxjs/Rx';
+import {Component} from '@angular/core';
 
 @Component({
-	selector: 'app',
-	template: `
-		<form [formGroup]="coolForm">
-		  <input formControlName="search" placeholder="Search Spotify artist">
-		  <input (click)="search()" type="submit" value="SearchFor Spotify Artist">
-		   <input (click)="getUsers()" type="submit" value="User1Data">
-		</form>
-		
-		<div *ngFor="let artist of result">
-		  {{artist.name}}
-		</div>
-		<div>
-		  {{name}}
-		</div>
-	`
+  selector: 'app',
+  template: `
+    <nav>
+      <a [routerLink]="['/component-one']">Component One</a>
+      <a [routerLink]="['/component-two']">Component Two</a>
+      <a [routerLink]="[{ outlets: { 'sidebar': ['component-aux'] } }]">Component Aux</a>
+    </nav>
+    <div style="color: green; margin-top: 1rem;">Outlet:</div>
+    <div style="border: 2px solid green; padding: 1rem;">
+      <router-outlet></router-outlet>
+    </div>
+    
+    <div style="color: green; margin-top: 1rem;">Sidebar Outlet:</div>
+    <div style="border: 2px solid blue; padding: 1rem;">
+      <router-outlet name="sidebar"></router-outlet>
+    </div>
+  `
 })
 export class AppComponent {
-	searchField: FormControl;
-	coolForm: FormGroup;
-	
-	constructor(private searchService:SearchService, private fb:FormBuilder) {
-		this.searchField = new FormControl();
-		this.coolForm = fb.group({ search: this.searchField });
-	}
-	getUsers()
-	{
-	  this.searchService.getUser()
-		  .subscribe(result => {
-        this.user = result.user1;
-        console.log(this.user.name);
-this.name=this.user.name;
-      });
-	}
-	search() {
-		this.searchService.search(this.searchField.value)
-		  .subscribe(result => {
-        this.result = result.artists.items
-      });
-	}
+  
 }
